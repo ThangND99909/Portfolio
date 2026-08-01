@@ -72,6 +72,13 @@ export type ArchLayer = {
 export type Decision = {
   /** Mono title framed as the decision itself, e.g. "QDRANT VS PINECONE". */
   title: string;
+  /** Publishable content. Omit until all three parts are backed by real facts. */
+  content?: {
+    problem: Text;
+    choice: Text;
+    tradeoff: Text;
+  };
+  /** Draft prompts are retained in source/CONTENT-TODO.md but never rendered. */
   problem: Text;
   choice: Text;
   tradeoff: Text;
@@ -97,6 +104,9 @@ export type MediaSlot = {
 
 export type Project = {
   slug: string;
+  /** Explicit presentation order; never infer prominence from dates or arrays. */
+  order: number;
+  section: 'selected' | 'experiment';
   /** Product name — not translated. */
   name: string;
   role: Text;
@@ -105,7 +115,7 @@ export type Project = {
    *  Bilingual because the open end reads "now" in English and "nay" in
    *  Vietnamese — a shared string leaves one locale half-translated. */
   period: Text;
-  status: 'production' | 'prototype';
+  status: 'live' | 'in-progress' | 'prototype';
   /** One line of business outcome. Leads every card and every page. */
   outcome: Text;
   /** Stack chips for the index row. Language-neutral. */

@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PREFETCH_LOCALE_ROOT, type Locale } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/dict';
 import { Container } from './primitives';
 import { LocaleSwitch } from './LocaleSwitch';
@@ -30,7 +30,6 @@ export function Footer({
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  prefetch={PREFETCH_LOCALE_ROOT}
                   className="tap text-muted transition-colors hover:text-brand"
                 >
                   {link.label}

@@ -118,32 +118,32 @@ your brief actually stated, because the brief said not to invent numbers.
 
 ## 3. Files to add
 
-- **`public/cv.pdf`** — then set `cvAvailable: true` in `content/profile.ts`. Right
-  now the contact block shows an inert control saying the file is not added yet,
-  rather than linking to a 404.
+- **`public/cv.pdf`** — the build detects this file automatically. Until it
+  exists, no download control is rendered.
 - **Screenshots and demo videos** — each case study has boxes at the right aspect
   ratio with the exact path printed inside them, e.g.
   `public/media/arbin/01-chat.png`. Dropping files in does not move anything.
 
-## 4. Two facts to confirm
+## 4. Facts to confirm before publishing
 
-- **Magrabbit and Trucommerce overlap by 11 months** — Magrabbit is
-  `10/2015 – 10/2017` and Trucommerce starts `11/2016`. The timeline shows both
-  dates as given. If one is wrong, `content/timeline.ts` is the file.
+- **Project status.** The previous content described Arbin, Student Assessment,
+  and Smart Calendar as in production, so they are currently mapped to `live`.
+  Confirm or change each one to `in-progress` / `prototype` as appropriate.
 - **The live domain.** `SITE_URL` in `lib/i18n.ts` is currently
   `https://thangnd-portfolio.vercel.app`, which is a guess. It feeds the canonical
   URL, `hreflang`, Open Graph and JSON-LD, so it needs to be the real one before
-  search engines see the site. The same four URLs are also hard-coded in
-  `public/index.html`.
+  search engines see the site.
+- **LinkedIn URL.** `linkedinUrl` in `content/profile.ts` is deliberately `null`.
+  Add the verified profile URL to publish it in Contact and JSON-LD `sameAs`.
 
 ## 5. Decisions I made on your behalf
 
 Flagging these because they are judgement calls, not facts, and you may disagree:
 
-- **UXO is presented as a prototype**, and the metric band says **3** AI systems
-  in production rather than 4. Your brief said 4 systems, but you confirmed UXO is
-  the iViettech capstone. A technical interviewer will dig here, and being caught
-  overstating costs more than the extra number gains.
-- **"Nine years"** everywhere, counting 2016–2025 at Trucommerce & Dicentral.
+- **UXO is presented as a prototype**, so the status-derived metric does not
+  count it as a live system. A technical interviewer will dig here, and being
+  caught overstating costs more than the extra number gains.
+- **"Nine years"** everywhere, counting the overall 2015–2025 backend and
+  integration period.
 - **No dark-mode toggle.** Your brief's reason for a light background (recruiters
   read fast and print) argues against one. I added a print stylesheet instead.

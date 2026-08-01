@@ -1,36 +1,26 @@
 # Portfolio — Nguyen Duc Thang
 
 Bilingual (EN/VI) portfolio for an AI engineer, built as a technical datasheet
-rather than a landing page. Next.js App Router, Tailwind CSS, static export.
+rather than a landing page. Next.js App Router, Tailwind CSS, deployed on Vercel.
 
 ```bash
 npm install
 npm run dev        # http://localhost:3000  (redirects to /en/)
-npm run build      # writes the static site to out/
-npm run preview    # serves out/ at http://localhost:4321 — the real thing
+npm run build      # creates the production Next.js build
+npm run preview    # builds and starts it at http://localhost:4321
 npm run typecheck
 ```
 
-`npm run dev` is for editing. `npm run preview` serves the actual static export,
-which is what gets deployed and the only way to check the `/` redirect, the
-`localStorage` locale memory and `robots.txt`/`sitemap.xml` as they will really
-behave.
+`npm run dev` is for editing. `npm run preview` serves the same production mode
+used on Vercel and is the right place to verify redirects and metadata routes.
 
 ## Deploy
 
-Target is **Vercel**, so there is no `basePath`. Import the repo and accept the
-defaults; Vercel detects Next.js and serves the `out/` directory produced by
-`output: 'export'`.
+Target is **Vercel**. Import the repo and accept the Next.js defaults.
 
-**Before the first deploy**, set the real domain in two places:
-
-1. `lib/i18n.ts` → `SITE_URL`. Drives canonical URLs, `hreflang`, Open Graph and
-   the JSON-LD.
-2. `public/index.html` → the four absolute URLs in `<head>`.
-
-If you ever move to GitHub Pages instead, that repo is a *project* page, so it
-needs `basePath: '/Portfolio'` and `assetPrefix` in `next.config.ts` plus a
-`.nojekyll` file. Nothing else changes.
+**Before the first deploy**, set the real domain once at `SITE_URL` in
+`lib/i18n.ts`. It drives canonical URLs, `hreflang`, Open Graph, JSON-LD,
+robots and the sitemap. `/` redirects permanently to `/en` in `next.config.ts`.
 
 ## Editing content
 
@@ -40,7 +30,7 @@ No copy lives in a component. Everything is in `content/`:
 | --- | --- |
 | `content/dict/en.ts` | Every UI string, English. This is the source of truth for the dictionary's shape. |
 | `content/dict/vi.ts` | The same strings in Vietnamese, typed against `en.ts` — **adding a key to `en.ts` without translating it fails the build**. |
-| `content/profile.ts` | Name, email, phone, GitHub, the CV flag, and the three figures in the metric band. |
+| `content/profile.ts` | Name, email, phone, social links, and profile metrics. |
 | `content/projects/*.ts` | One file per case study: prose, spec sheet, architecture diagram, decisions, results, media slots. |
 | `content/timeline.ts` | Career entries, newest first. |
 | `content/skills.ts` | Skills grouped by pipeline layer. |
@@ -53,23 +43,22 @@ leaving them.
 ### Adding a project
 
 1. Copy `content/projects/smart-calendar.ts` and edit it.
-2. Add it to the array in `content/projects/index.ts`. Order there is the order
-   on the home page.
+2. Add it to the array in `content/projects/index.ts` and give it an explicit
+   `order`, `section`, and `status` in its content file.
 
 The route, the static params, the `hreflang` pair and the JSON-LD all follow from
 that. Nothing else to register.
 
-### Filling in a "Draft — to be filled in" card
+### Publishing a Key decision
 
-Decision cards with `todo: true` render with a dashed border and a visible badge.
-The placeholder text is the question that needs answering. Replace the three
-fields and delete the `todo: true` line.
+Draft questions live in `CONTENT-TODO.md` and do not render. Add a decision's
+`content: { problem, choice, tradeoff }` only when all three are factual. The
+build warns for every omitted decision; a page with none hides the whole section.
 
 ### Adding the CV
 
-Drop the file at `public/cv.pdf` and set `cvAvailable: true` in
-`content/profile.ts`. Until then the contact block shows an inert control with a
-note instead of a link to a 404.
+Drop the file at `public/cv.pdf`. The server build detects it automatically; the
+download link is absent until the file exists.
 
 ### Adding screenshots and demo videos
 
@@ -101,11 +90,11 @@ renders it. Consequences worth knowing:
 - The screen-reader description is generated from the spec, so it can never
   disagree with the drawing.
 
-### There are no client components
+### Server components by default
 
 The whole site renders on the server. The only client-side behaviour is
 `components/PageScript.tsx` — an inline script that adds `is-drawn` to a diagram
-when it scrolls into view and records the current locale in `localStorage`.
+when it scrolls into view.
 
 This was a measured decision, not a preference: with `PipelineDiagram` and
 `LocaleSwitch` as client components, throttled-mobile TBT was 302ms and
@@ -124,33 +113,17 @@ Also rejected after measuring: `experimental.inlineCss`. Inlining the ~7KB
 stylesheet removed a render-blocking request but pushed FCP from 777ms to 953ms,
 because the HTML document is itself the critical resource.
 
-### Locale routing without middleware
+### Locale routing
 
-Middleware does not run under `output: 'export'`, so:
+Every content route is explicitly locale-scoped:
 
-- Every route lives under `app/[locale]/`, and that layout is the root layout —
-  which is what gets `<html lang>` right for both locales.
-- `/` is `public/index.html`, a hand-written redirect that reads `localStorage`
-  and falls back to English. It runs before any framework JavaScript.
+- Every route lives under `app/[locale]/`, and that layout is the root layout,
+  which gets `<html lang>` right for both locales.
+- `/` is a permanent Next.js redirect to `/en` declared in `next.config.ts`.
 - The language switcher takes the current path as a prop from the page, so it
   stays on the page you were reading without needing `usePathname`.
-- Links to a locale root have `prefetch={false}`: Next builds a malformed RSC
-  payload URL (`/vi/__next.$d$locale.__PAGE__.txt`) for a route whose only
-  dynamic segment is the locale, and it 404s. Links to `work/[slug]` are fine.
-
-The dev server serves `public/index.html` at `/index.html` but not at `/`, so `/`
-would 404 in dev only. `next.config.ts` adds a `/` → `/en/` redirect gated on
-`NODE_ENV === 'development'`: `redirects` is unsupported under
-`output: 'export'`, and declaring it unconditionally puts a warning on every
-build, so the exported site never sees it.
-
-One consequence worth knowing: because every route is under `[locale]`, an
-unmatched top-level path gets matched against `/[locale]` and, under
-`output: 'export'`, throws *"missing param in generateStaticParams()"* instead of
-returning a plain 404. So the paths browsers and crawlers ask for
-unprompted exist as real files: `public/favicon.ico`, `public/icon.svg`,
-`app/robots.ts` and `app/sitemap.ts`. Both metadata routes need
-`export const dynamic = 'force-static'` or the build fails collecting page data.
+- The language switcher takes the current path as a prop from the page, so it
+  stays on the page being read without becoming a client component.
 
 `app/sitemap.ts` reads the same project list the pages do, so adding a project
 does not mean remembering to update a sitemap.
@@ -186,8 +159,7 @@ text via `data-print-url`.
 
 ## Verified
 
-Lighthouse, against the built output served with the `Cache-Control` headers
-Vercel sets:
+Lighthouse, against the production Next.js server:
 
 | Page | Perf | A11y | Best practices | SEO |
 | --- | --- | --- | --- | --- |
@@ -197,10 +169,10 @@ Vercel sets:
 | `/en/work/arbin-ai-assistant/` mobile | 99 | 100 | 100 | 100 |
 | `/vi/work/uxo-chatbot-detection/` mobile | 98 | 100 | 100 | 100 |
 
-Also checked by hand: no horizontal overflow at 320/360/375/414/768/1024/1440/1920px;
-every text node meets AA contrast for its size; every tap target ≥ 28px; console
-clean on all routes in both locales; `prefers-reduced-motion` shows finished
-diagrams; the root redirect honours a stored locale and defaults to English.
+The reproducible browser audit is `npm run audit -- http://localhost:4321`. It
+checks horizontal overflow at 320/360/375/414/768/1024/1440/1920px, WCAG A/AA,
+keyboard order and focus visibility, content order, hidden drafts/CV, diagram
+alternatives, root redirect, colour usage and the first-1.5-screen requirement.
 
 ## Regenerating the Open Graph image
 

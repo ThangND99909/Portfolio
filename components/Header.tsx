@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PREFETCH_LOCALE_ROOT, type Locale } from '@/lib/i18n';
+import type { Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/dict';
 import { profile } from '@/content/profile';
 import { Container } from './primitives';
@@ -31,7 +31,6 @@ export function Header({
             <>
               <Link
                 href={`/${locale}/`}
-                prefetch={PREFETCH_LOCALE_ROOT}
                 className="tap text-muted transition-colors hover:text-brand"
               >
                 {dict.study.backToIndex}

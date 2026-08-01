@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import type { Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/dict';
-import { projects } from '@/content/projects';
+import type { Project } from '@/content/types';
 
 /**
  * An index of systems, not a card grid: four full-width records separated by
@@ -9,17 +9,29 @@ import { projects } from '@/content/projects';
  * The outcome line comes before the stack on purpose — the brief's readers want
  * the result first and the technology second.
  */
-export function WorkIndex({ locale, dict }: { locale: Locale; dict: Dictionary }) {
+export function WorkIndex({
+  locale,
+  dict,
+  projects,
+  compact = false,
+}: {
+  locale: Locale;
+  dict: Dictionary;
+  projects: Project[];
+  compact?: boolean;
+}) {
   return (
     <ul className="border-t border-hairline">
       {projects.map((project) => (
         <li key={project.slug}>
           <Link
             href={`/${locale}/work/${project.slug}/`}
-            className="group block border-b border-hairline py-8 transition-colors hover:border-brand focus-visible:border-brand"
+            className={`group block border-b border-hairline transition-colors hover:border-brand focus-visible:border-brand ${compact ? 'py-5' : 'py-8'}`}
           >
             <div className="flex flex-col gap-1.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
-              <h3 className="font-display text-d3 text-ink transition-colors group-hover:text-brand">
+              <h3
+                className={`font-display text-ink transition-colors group-hover:text-brand ${compact ? 'text-base font-semibold' : 'text-d3'}`}
+              >
                 {project.name}
               </h3>
               <p className="label shrink-0 text-muted">
@@ -39,7 +51,9 @@ export function WorkIndex({ locale, dict }: { locale: Locale; dict: Dictionary }
               {project.org}
             </p>
 
-            <p className="mt-4 max-w-[68ch] text-ink">{project.outcome[locale]}</p>
+            <p className={`${compact ? 'mt-3 text-sm' : 'mt-4'} max-w-[68ch] text-ink`}>
+              {project.outcome[locale]}
+            </p>
 
             <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6">
               <p className="label-val text-muted">

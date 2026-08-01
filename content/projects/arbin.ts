@@ -10,11 +10,13 @@ import type { Project } from '../types';
  */
 export const arbin: Project = {
   slug: 'arbin-ai-assistant',
+  order: 1,
+  section: 'selected',
   name: 'Arbin AI Assistant',
   role: { en: 'AI Engineer & Team Leader', vi: 'AI Engineer & Team Leader' },
   org: 'AZVision Company',
   period: { en: '10/2025 — now', vi: '10/2025 — nay' },
-  status: 'production',
+  status: 'live',
 
   outcome: {
     en: 'A RAG assistant answering ~500 users a day across three permission tiers, over a knowledge base built from 100+ PDFs and 400+ website pages.',
@@ -37,7 +39,6 @@ export const arbin: Project = {
     { key: 'timeline', value: { en: '10/2025 — now', vi: '10/2025 — nay' } },
     { key: 'users', value: { en: '~500 / day', vi: '~500 / ngày' } },
     { key: 'stack', value: ['FastAPI', 'LangChain', 'Qdrant', 'PostgreSQL', 'AWS EC2'] },
-    { key: 'status', value: { en: 'In production', vi: 'Đang chạy production' } },
   ],
 
   problem: {

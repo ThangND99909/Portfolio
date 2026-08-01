@@ -12,15 +12,17 @@ import { Container, Figure } from './primitives';
  * colour to itself.
  */
 export function MetricBand({ locale }: { locale: Locale }) {
+  const items = metrics();
+
   return (
     <div className="border-y border-hairline bg-panel/50">
       <Container>
         <dl className="grid grid-cols-1 divide-y divide-hairline sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-          {metrics.map((metric, i) => (
+          {items.map((metric, i) => (
             <div
               key={metric.figure + i}
               className={`flex flex-col gap-2 py-7 ${i === 0 ? 'sm:pr-8' : 'sm:px-8'} ${
-                i === metrics.length - 1 ? 'sm:pr-0' : ''
+                i === items.length - 1 ? 'sm:pr-0' : ''
               }`}
             >
               <dd className="order-1">

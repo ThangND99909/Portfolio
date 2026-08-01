@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { isLocale, locales, PREFETCH_LOCALE_ROOT, type Locale } from '@/lib/i18n';
+import { isLocale, locales, type Locale } from '@/lib/i18n';
 import { alternatesFor, projectJsonLd } from '@/lib/seo';
 import { getDictionary } from '@/content/dict';
 import { getProject, projects } from '@/content/projects';
@@ -72,6 +72,7 @@ export default async function CaseStudyPage({
   const index = projects.findIndex((p) => p.slug === slug);
   const next = projects[(index + 1) % projects.length];
   const jsonLd = projectJsonLd(slug, l);
+  const publishedDecisions = project.decisions.filter((decision) => decision.content);
 
   return (
     <>
@@ -160,20 +161,22 @@ export default async function CaseStudyPage({
                 </dl>
               </Block>
 
-              <Block id="decisions">
-                <StudyHead>{dict.study.decisions}</StudyHead>
-                <p className="mb-8 max-w-[68ch] text-muted">{dict.study.decisionsIntro}</p>
-                <div className="flex flex-col gap-5">
-                  {project.decisions.map((decision) => (
-                    <DecisionCard
-                      key={decision.title}
-                      decision={decision}
-                      locale={l}
-                      dict={dict}
-                    />
-                  ))}
-                </div>
-              </Block>
+              {publishedDecisions.length > 0 ? (
+                <Block id="decisions">
+                  <StudyHead>{dict.study.decisions}</StudyHead>
+                  <p className="mb-8 max-w-[68ch] text-muted">{dict.study.decisionsIntro}</p>
+                  <div className="flex flex-col gap-5">
+                    {publishedDecisions.map((decision) => (
+                      <DecisionCard
+                        key={decision.title}
+                        decision={decision}
+                        locale={l}
+                        dict={dict}
+                      />
+                    ))}
+                  </div>
+                </Block>
+              ) : null}
 
               <Block id="result">
                 <StudyHead>{dict.study.result}</StudyHead>
@@ -209,7 +212,6 @@ export default async function CaseStudyPage({
               >
                 <Link
                   href={`/${l}/#work`}
-                  prefetch={PREFETCH_LOCALE_ROOT}
                   className="label tap text-muted transition-colors hover:text-brand"
                 >
                   <span aria-hidden="true" className="mr-2">

@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { locales, type Locale } from '@/lib/i18n';
 import type { Dictionary } from '@/content/dict';
 
@@ -7,13 +6,12 @@ import type { Dictionary } from '@/content/dict';
  *
  * `path` is the route below the locale segment ('' for the home page,
  * 'work/<slug>' for a case study), passed down from the page that already knows
- * it. That is why this is a server component: reading the current path with
- * usePathname would make it a client component, and the only other thing it did
- * — remembering the choice — now happens in <PageScript>, which records the
- * locale of whatever page you land on.
+ * it. That keeps this a server component: reading the current path with
+ * usePathname would otherwise require client-side hydration.
  *
- * No middleware is involved anywhere; middleware does not run under
- * output: 'export'.
+ * Locale changes use a native GET form because [locale] owns the root layout.
+ * This guarantees a new document and reruns the diagram bootstrap without
+ * adding a client component or React hydration.
  */
 export function LocaleSwitch({
   current,
@@ -44,27 +42,20 @@ export function LocaleSwitch({
               </span>
             ) : null}
             {isCurrent ? (
-              <span aria-current="true" className="text-ink">
+              <span aria-current="true" lang={locale} className="text-ink">
                 {locale.toUpperCase()}
               </span>
             ) : (
-              <Link
-                href={hrefFor(locale)}
-                hrefLang={locale}
-                // Prefetch off for two reasons: under output: 'export' Next
-                // builds a malformed RSC payload URL for a route whose only
-                // dynamic segment is the locale, and pre-loading the other
-                // language is wasted bandwidth for the majority who never switch.
-                prefetch={false}
-                className="tap px-1 text-muted underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
-              >
-                {/* The full sentence goes in a visually hidden span rather than
-                    an aria-label: WCAG 2.5.3 (Label in Name) requires the
-                    accessible name to contain the visible text, and an
-                    aria-label replaces it instead of extending it. */}
-                {locale.toUpperCase()}
-                <span className="sr-only"> — {label[locale]}</span>
-              </Link>
+              <form action={hrefFor(locale)} method="get">
+                <button
+                  type="submit"
+                  lang={locale}
+                  aria-label={`${locale.toUpperCase()} — ${label[locale]}`}
+                  className="tap cursor-pointer px-1 text-muted underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:text-brand hover:decoration-brand"
+                >
+                  {locale.toUpperCase()}
+                </button>
+              </form>
             )}
           </span>
         );

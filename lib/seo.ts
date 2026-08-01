@@ -32,7 +32,7 @@ export function personJsonLd(locale: Locale) {
     email: `mailto:${profile.email}`,
     telephone: profile.phoneE164,
     url: `${SITE_URL}/${locale}/`,
-    sameAs: [profile.githubUrl],
+    sameAs: [profile.githubUrl, profile.linkedinUrl].filter(Boolean),
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Da Nang',

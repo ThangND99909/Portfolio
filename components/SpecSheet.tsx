@@ -23,6 +23,11 @@ export function SpecSheet({
       <p className="label mb-4 text-muted">{dict.spec.title}</p>
 
       <dl className="border-t border-hairline">
+        <div className="grid grid-cols-[6rem_1fr] gap-4 border-b border-hairline py-3">
+          <dt className="label pt-1 text-muted">{dict.spec.keys.status}</dt>
+          <dd className="label-val text-ink">{dict.spec.status[project.status]}</dd>
+        </div>
+
         {project.spec.map((row) => (
           <div key={row.key} className="grid grid-cols-[6rem_1fr] gap-4 border-b border-hairline py-3">
             <dt className="label pt-1 text-muted">{dict.spec.keys[row.key]}</dt>

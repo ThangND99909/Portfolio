@@ -35,8 +35,10 @@ export const en = {
   },
 
   work: {
-    eyebrow: '4 systems · 2025—2026',
+    eyebrow: 'Production work · 2025—2026',
     title: 'Selected work',
+    experimentsEyebrow: 'Personal capstone · prototype',
+    experimentsTitle: 'Experiments',
     readSpec: 'Read spec',
     roleAt: 'at',
   },
@@ -63,6 +65,7 @@ export const en = {
     availability: 'Open to full-time remote roles and freelance projects.',
     email: 'Email',
     github: 'GitHub',
+    linkedin: 'LinkedIn',
     phone: 'Phone',
     downloadCv: 'Download CV (PDF)',
     cvPending: 'CV file not added yet',
@@ -80,7 +83,8 @@ export const en = {
       client: 'Client',
     },
     status: {
-      production: 'In production',
+      live: 'Live',
+      'in-progress': 'In progress',
       prototype: 'Prototype',
     },
     sourcePublic: 'Public repository',
@@ -113,7 +117,7 @@ export const en = {
 
   footer: {
     updated: 'Last updated August 2026',
-    build: 'Static build · no analytics, no third-party scripts',
+    build: 'Server-rendered · no analytics, no third-party scripts',
   },
 };
 

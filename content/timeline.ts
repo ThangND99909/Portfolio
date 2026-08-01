@@ -5,8 +5,8 @@ import type { TimelineEntry } from './types';
  * solid brand rail, everything before 2025 on a hairline. That switch is the
  * only visual marker for the career pivot — no badge, no accent colour.
  *
- * Note: Magrabbit (10/2015 – 10/2017) and Trucommerce (11/2016 – 04/2025)
- * overlap by 11 months. Both dates are shown as given in the brief.
+ * Magrabbit (10/2015 – 10/2017) flows directly into Trucommerce
+ * (11/2017 – 04/2025), with no overlap or gap.
  */
 export const timeline: TimelineEntry[] = [
   {
@@ -65,8 +65,8 @@ export const timeline: TimelineEntry[] = [
     era: 'education',
   },
   {
-    year: '2016',
-    period: '11/2016 — 04/2025',
+    year: '2017',
+    period: '11/2017 — 04/2025',
     title: {
       en: 'Integration Specialist → Business Solution Leader',
       vi: 'Integration Specialist → Business Solution Leader',

@@ -41,8 +41,10 @@ export const vi: Dictionary = {
   },
 
   work: {
-    eyebrow: '4 hệ thống · 2025—2026',
+    eyebrow: 'Dự án production · 2025—2026',
     title: 'Dự án chọn lọc',
+    experimentsEyebrow: 'Capstone cá nhân · prototype',
+    experimentsTitle: 'Thử nghiệm',
     readSpec: 'Xem spec',
     roleAt: 'tại',
   },
@@ -69,6 +71,7 @@ export const vi: Dictionary = {
     availability: 'Sẵn sàng cho vị trí full-time remote và dự án freelance.',
     email: 'Email',
     github: 'GitHub',
+    linkedin: 'LinkedIn',
     phone: 'Điện thoại',
     downloadCv: 'Tải CV (PDF)',
     cvPending: 'Chưa có file CV',
@@ -86,7 +89,8 @@ export const vi: Dictionary = {
       client: 'Khách hàng',
     },
     status: {
-      production: 'Đang chạy production',
+      live: 'Đang hoạt động',
+      'in-progress': 'Đang phát triển',
       prototype: 'Prototype',
     },
     sourcePublic: 'Repository công khai',
@@ -119,6 +123,6 @@ export const vi: Dictionary = {
 
   footer: {
     updated: 'Cập nhật tháng 8/2026',
-    build: 'Static build · không analytics, không script bên thứ ba',
+    build: 'Server-rendered · không analytics, không script bên thứ ba',
   },
 };

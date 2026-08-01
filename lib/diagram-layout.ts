@@ -372,7 +372,11 @@ function round(n: number): number {
 /** Text alternative for screen readers, generated from the spec so it can never
  *  drift from the drawing. */
 export function describeDiagram(spec: DiagramSpec): string {
-  const label = (id: string) => spec.nodes.find((n) => n.id === id)?.label ?? id;
+  const label = (id: string) => {
+    const node = spec.nodes.find((item) => item.id === id);
+    if (!node) return id;
+    return [node.label, node.sub, node.hover].filter(Boolean).join(', ');
+  };
   const steps = spec.edges.map((e) => {
     const arrow = e.biDirectional ? 'to and from' : 'to';
     const note = e.note ? ` (${e.note})` : '';

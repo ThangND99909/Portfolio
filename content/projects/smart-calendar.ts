@@ -2,11 +2,13 @@ import type { Project } from '../types';
 
 export const smartCalendar: Project = {
   slug: 'smart-calendar',
+  order: 3,
+  section: 'selected',
   name: 'Smart Calendar',
   role: { en: 'Freelance Full-stack Engineer', vi: 'Full-stack Engineer freelance' },
   org: 'Zencity Foundation',
   period: { en: '06/2025 — now', vi: '06/2025 — nay' },
-  status: 'production',
+  status: 'live',
 
   outcome: {
     en: 'Scheduling app used by 20 teachers, suggesting class slots from their actual free time and syncing both ways with Google Calendar.',
@@ -26,7 +28,6 @@ export const smartCalendar: Project = {
     { key: 'timeline', value: { en: '06/2025 — now', vi: '06/2025 — nay' } },
     { key: 'users', value: { en: '20 teachers', vi: '20 giáo viên' } },
     { key: 'stack', value: ['React', 'FullCalendar', 'FastAPI', 'Google Calendar API'] },
-    { key: 'status', value: { en: 'In production', vi: 'Đang chạy production' } },
   ],
 
   problem: {

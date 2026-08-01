@@ -1,4 +1,5 @@
 import type { Metric } from './types';
+import { projects } from './projects';
 
 export const profile = {
   name: 'Nguyen Duc Thang',
@@ -10,12 +11,9 @@ export const profile = {
   phoneE164: '+84332201222',
   githubUser: 'ThangND99909',
   githubUrl: 'https://github.com/ThangND99909',
+  // Add the verified public profile URL here; null keeps it out of HTML/JSON-LD.
+  linkedinUrl: null as string | null,
 
-  /**
-   * Set to true once /public/cv.pdf exists. While false the contact block
-   * renders a disabled control with a note instead of a link to a 404.
-   */
-  cvAvailable: false,
   cvPath: '/cv.pdf',
 };
 
@@ -23,30 +21,43 @@ export const profile = {
  * The three figures in the metric band. These are the only three places on the
  * home page that use --data (amber), which is what keeps the colour meaningful.
  *
- * "3 systems in production" counts Arbin, Student Assessment and Smart
- * Calendar. UXO is a training capstone and is presented as a prototype, so it
- * is deliberately not counted here.
+ * The system count below is derived from project status. UXO is a prototype,
+ * so it is deliberately not counted as live.
  */
-export const metrics: Metric[] = [
-  {
-    figure: '~500',
-    label: {
-      en: 'Daily users · Arbin',
-      vi: 'Người dùng/ngày · Arbin',
+export function metrics(): Metric[] {
+  const live = projects.filter((project) => project.status === 'live').length;
+  const inProgress = projects.filter((project) => project.status === 'in-progress').length;
+  const systemStatus: Metric = inProgress
+    ? {
+        figure: `${live} · ${inProgress}`,
+        label: {
+          en: 'Systems live · in progress',
+          vi: 'Hệ thống hoạt động · đang phát triển',
+        },
+      }
+    : {
+        figure: String(live),
+        label: {
+          en: live === 1 ? 'AI system live' : 'AI systems live',
+          vi: 'Hệ thống AI đang hoạt động',
+        },
+      };
+
+  return [
+    {
+      figure: '~500',
+      label: {
+        en: 'Daily users · Arbin',
+        vi: 'Người dùng/ngày · Arbin',
+      },
     },
-  },
-  {
-    figure: '3',
-    label: {
-      en: 'AI systems in production',
-      vi: 'Hệ thống AI chạy production',
+    systemStatus,
+    {
+      figure: '9',
+      label: {
+        en: 'Years backend & integration',
+        vi: 'Năm backend & integration',
+      },
     },
-  },
-  {
-    figure: '9',
-    label: {
-      en: 'Years backend & integration',
-      vi: 'Năm backend & integration',
-    },
-  },
-];
+  ];
+}

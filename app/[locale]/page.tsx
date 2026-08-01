@@ -13,6 +13,7 @@ import { Contact } from '@/components/Contact';
 import { Footer } from '@/components/Footer';
 import { PageScript } from '@/components/PageScript';
 import { Section, SectionHead } from '@/components/primitives';
+import { experimentProjects, selectedProjects } from '@/content/projects';
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -66,7 +67,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
         <Section id="work" divide={false}>
           <SectionHead eyebrow={dict.work.eyebrow} title={dict.work.title} />
-          <WorkIndex locale={l} dict={dict} />
+          <WorkIndex locale={l} dict={dict} projects={selectedProjects} />
+        </Section>
+
+        <Section id="experiments">
+          <SectionHead eyebrow={dict.work.experimentsEyebrow} title={dict.work.experimentsTitle} />
+          <WorkIndex locale={l} dict={dict} projects={experimentProjects} compact />
         </Section>
 
         <Section id="career">

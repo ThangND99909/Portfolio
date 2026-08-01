@@ -23,14 +23,3 @@ export function isLocale(value: string): value is Locale {
 
 /** Absolute site origin. Update once here if the domain changes. */
 export const SITE_URL = 'https://thangnd-portfolio.vercel.app';
-
-/**
- * Whether <Link> may prefetch a link that points at a locale root (`/en/`).
- *
- * Off, and it has to be: under output: 'export', Next builds the RSC payload URL
- * for a route whose only dynamic segment is the root as
- * `/vi/__next.$d$locale.__PAGE__.txt` — the placeholder is never substituted, so
- * the request 404s and the browser logs an error on every page that carries such
- * a link. Links to `/[locale]/work/[slug]/` are unaffected and still prefetch.
- */
-export const PREFETCH_LOCALE_ROOT = false;

@@ -4,8 +4,12 @@ import { studentAssessment } from './student-assessment';
 import { smartCalendar } from './smart-calendar';
 import { uxo } from './uxo';
 
-/** Display order on the home page: by weight, not by date. */
-export const projects: Project[] = [arbin, studentAssessment, smartCalendar, uxo];
+const projectContent: Project[] = [arbin, studentAssessment, smartCalendar, uxo];
+
+/** All consumers share the explicit editorial order declared in content. */
+export const projects: Project[] = [...projectContent].sort((a, b) => a.order - b.order);
+export const selectedProjects = projects.filter((project) => project.section === 'selected');
+export const experimentProjects = projects.filter((project) => project.section === 'experiment');
 
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
@@ -22,7 +26,7 @@ export function projectSlugs(): string[] {
  * explain it. Same renderer, same geometry, less information.
  */
 export const heroDiagram: DiagramSpec = {
-  caption: 'ARBIN · INGESTION → RESPONSE',
+  caption: 'ARBIN AI ASSISTANT · INGESTION → RESPONSE',
   cols: 2,
   nodes: [
     { id: 'ingest', label: 'INGEST', sub: 'PDF · WEB CRAWL', col: 0, row: 0 },

@@ -1,3 +1,5 @@
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
 import type { Dictionary } from '@/content/dict';
 import { profile } from '@/content/profile';
 
@@ -7,6 +9,7 @@ import { profile } from '@/content/profile';
  * selling makes full-time recruiters hesitate.
  */
 export function Contact({ dict }: { dict: Dictionary }) {
+  const cvAvailable = existsSync(join(process.cwd(), 'public', profile.cvPath.slice(1)));
   const rows: Array<{ key: string; node: React.ReactNode }> = [
     {
       key: dict.contact.email,
@@ -44,6 +47,21 @@ export function Contact({ dict }: { dict: Dictionary }) {
     },
   ];
 
+  if (profile.linkedinUrl) {
+    rows.splice(2, 0, {
+      key: dict.contact.linkedin,
+      node: (
+        <a
+          href={profile.linkedinUrl}
+          className="tap text-brand underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:decoration-brand"
+          data-print-url={profile.linkedinUrl}
+        >
+          linkedin.com
+        </a>
+      ),
+    });
+  }
+
   return (
     <div className="grid gap-10 md:grid-cols-12 md:gap-10">
       <p className="max-w-[46ch] text-ink md:col-span-5">{dict.contact.availability}</p>
@@ -61,8 +79,8 @@ export function Contact({ dict }: { dict: Dictionary }) {
           ))}
         </dl>
 
-        <div className="mt-8">
-          {profile.cvAvailable ? (
+        {cvAvailable ? (
+          <div className="mt-8">
             <a
               href={profile.cvPath}
               download
@@ -71,18 +89,8 @@ export function Contact({ dict }: { dict: Dictionary }) {
               {dict.contact.downloadCv}
               <span aria-hidden="true">↓</span>
             </a>
-          ) : (
-            // No link to a 404: until /public/cv.pdf exists this is an inert
-            // control with the reason stated next to it.
-            <p className="label inline-flex items-center gap-3 rounded-ctl border border-dashed border-hairline px-5 py-3 text-muted">
-              {dict.contact.downloadCv}
-              <span aria-hidden="true" className="text-hairline">
-                ·
-              </span>
-              {dict.contact.cvPending}
-            </p>
-          )}
-        </div>
+          </div>
+        ) : null}
       </div>
     </div>
   );

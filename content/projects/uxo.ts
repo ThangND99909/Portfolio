@@ -7,6 +7,8 @@ import type { Project } from '../types';
  */
 export const uxo: Project = {
   slug: 'uxo-chatbot-detection',
+  order: 4,
+  section: 'experiment',
   name: 'UXO Chatbot & Detection System',
   role: { en: 'AI Engineer (capstone)', vi: 'AI Engineer (capstone)' },
   org: 'iViettech',
@@ -30,7 +32,6 @@ export const uxo: Project = {
     { key: 'client', value: { en: 'iViettech — AI Engineer programme', vi: 'iViettech — chương trình AI Engineer' } },
     { key: 'timeline', value: { en: '07/2025 — now', vi: '07/2025 — nay' } },
     { key: 'stack', value: ['YOLOv8', 'Roboflow', 'LangChain', 'Chroma', 'FastAPI', 'Streamlit'] },
-    { key: 'status', value: { en: 'Prototype', vi: 'Prototype' } },
   ],
 
   problem: {

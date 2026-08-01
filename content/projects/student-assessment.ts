@@ -2,11 +2,13 @@ import type { Project } from '../types';
 
 export const studentAssessment: Project = {
   slug: 'student-assessment-agent',
+  order: 2,
+  section: 'selected',
   name: 'AI Agent for Student Assessment',
   role: { en: 'Freelance AI Engineer', vi: 'AI Engineer freelance' },
   org: 'Zencity Foundation',
   period: { en: '04/2026 — now', vi: '04/2026 — nay' },
-  status: 'production',
+  status: 'live',
 
   outcome: {
     en: 'Class transcripts go in, per-student assessment reports come out — extracted, stored and mailed without anyone reading a transcript by hand.',
@@ -28,7 +30,6 @@ export const studentAssessment: Project = {
     { key: 'client', value: { en: 'Zencity Foundation (nonprofit)', vi: 'Zencity Foundation (phi lợi nhuận)' } },
     { key: 'timeline', value: { en: '04/2026 — now', vi: '04/2026 — nay' } },
     { key: 'stack', value: ['Python', 'Claude API', 'Google Sheets/Drive/Docs API'] },
-    { key: 'status', value: { en: 'In production', vi: 'Đang chạy production' } },
   ],
 
   problem: {

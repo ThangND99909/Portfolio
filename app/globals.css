@@ -258,6 +258,10 @@
   stroke: var(--color-brand);
 }
 
+.dg-node-group:focus-visible .dg-box {
+  stroke-width: calc(var(--dg-stroke, 1) * 3);
+}
+
 .dg-node-group:hover .dg-hover,
 .dg-node-group:focus-visible .dg-hover {
   opacity: 1;

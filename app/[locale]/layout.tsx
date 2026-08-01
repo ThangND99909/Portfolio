@@ -7,10 +7,8 @@ import '../globals.css';
 
 /**
  * This is the root layout. Every route lives under [locale], so the layout that
- * owns <html> is also the one that knows the language — which is the only way
- * to get `lang` right on both locales without middleware (unavailable under
- * output: 'export'). The `/` entry point is a hand-written redirect at
- * public/index.html.
+ * owns <html> is also the one that knows the language, so `lang` is correct for
+ * both locales without client-side mutation.
  */
 
 /*

@@ -98,9 +98,9 @@ function DiagramSvg({
           '--dg-stroke': 1 / scale,
         } as CSSProperties
       }
-      role="img"
-      // A role="img" element needs a name, not only a description — aria-label
-      // here is the short one, <desc> is the full flow read out in order.
+      role="group"
+      // The group has a concise name and a generated full-flow description.
+      // Nodes with hover-only facts become labelled keyboard stops below.
       aria-label={label}
       aria-describedby={descId}
       className="mx-auto block"
@@ -124,7 +124,7 @@ function Edge({ edge }: { edge: LaidOutEdge }) {
   const edgeVars = { '--edge-len': edge.len + 2 } as CSSProperties;
 
   return (
-    <g>
+    <g aria-hidden="true">
       <path
         d={edge.d}
         className={edge.dashed ? 'diagram-edge diagram-edge--dashed' : 'diagram-edge'}
@@ -167,7 +167,13 @@ function Node({ laid }: { laid: LaidOutNode }) {
   const subY = y + h / 2 + 13;
 
   return (
-    <g className="diagram-node dg-node-group">
+    <g
+      className="diagram-node dg-node-group"
+      tabIndex={node.hover ? 0 : undefined}
+      role={node.hover ? 'note' : undefined}
+      aria-label={node.hover ? `${node.label} — ${node.hover}` : undefined}
+      aria-hidden={node.hover ? undefined : true}
+    >
       {node.hover ? <title>{`${node.label} — ${node.hover}`}</title> : null}
 
       <rect
