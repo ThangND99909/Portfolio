@@ -1,0 +1,199 @@
+﻿<!doctype html>
+<!--
+  Source for /public/og.png (1200x630).
+
+  Not served to visitors — it is rendered to a PNG once and the PNG is committed.
+  To regenerate after editing:
+
+    npx serve . -l 4321
+    chrome --headless=new --window-size=1200,630 \
+      --screenshot=public/og.png http://localhost:4321/scripts/og-source.html
+
+  Fonts load from Google here because this file only ever runs locally at build
+  time; the site itself self-hosts them through next/font.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #14181b;
+        --surface: #fbfbfa;
+        --panel: #ecefef;
+        --brand: #144e52;
+        --data: #b4762a;
+        --hairline: #d5d9d9;
+        --muted: #555859;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 1200px;
+        height: 630px;
+        background: var(--surface);
+        color: var(--ink);
+        font-family: 'IBM Plex Sans', sans-serif;
+        display: flex;
+        overflow: hidden;
+      }
+
+      .frame {
+        flex: 1;
+        margin: 40px;
+        border: 1px solid var(--hairline);
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        align-items: center;
+        gap: 48px;
+        padding: 56px 56px 56px 64px;
+      }
+
+      .label {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 15px;
+        font-weight: 500;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      h1 {
+        font-family: 'Archivo', sans-serif;
+        font-weight: 700;
+        font-size: 76px;
+        line-height: 1.02;
+        letter-spacing: -0.024em;
+        margin: 22px 0 24px;
+      }
+
+      p.positioning {
+        font-size: 22px;
+        line-height: 1.5;
+        max-width: 30ch;
+        color: var(--ink);
+      }
+
+      .metrics {
+        display: flex;
+        gap: 40px;
+        margin-top: 36px;
+        padding-top: 24px;
+        border-top: 1px solid var(--hairline);
+      }
+
+      .metric b {
+        font-family: 'IBM Plex Mono', monospace;
+        font-weight: 500;
+        font-size: 30px;
+        line-height: 1;
+        color: var(--data);
+        display: block;
+      }
+
+      .metric span {
+        font-family: 'IBM Plex Mono', monospace;
+        font-size: 12px;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: block;
+        margin-top: 8px;
+      }
+
+      svg text {
+        font-family: 'IBM Plex Mono', monospace;
+      }
+
+      .n-label {
+        font-size: 13px;
+        font-weight: 500;
+        letter-spacing: 0.07em;
+        fill: var(--ink);
+      }
+
+      .n-sub {
+        font-size: 11px;
+        letter-spacing: 0.05em;
+        fill: var(--brand);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="frame">
+      <div>
+        <p class="label">Da Nang, Vietnam · AI Engineer</p>
+        <h1>Nguyen Duc<br />Thang</h1>
+        <p class="positioning">
+          Nine years integrating production systems. Since 2025, RAG pipelines and AI agents.
+        </p>
+
+        <div class="metrics">
+          <div class="metric"><b>~500</b><span>Daily users</span></div>
+          <div class="metric"><b>3</b><span>AI systems in prod</span></div>
+          <div class="metric"><b>9</b><span>Years backend</span></div>
+        </div>
+      </div>
+
+      <!--
+        Same drawing language as the site: thin strokes, 4px radii, mono labels.
+        Five 48px nodes on a 36px pitch = 384px, which clears the frame padding.
+      -->
+      <svg width="380" height="384" viewBox="0 0 380 384" fill="none">
+        <g stroke="var(--brand)" stroke-width="1" stroke-linecap="round">
+          <path d="M190 48 L190 82" />
+          <path d="M190 132 L190 166" />
+          <path d="M190 216 L190 250" />
+          <path d="M190 300 L190 334" />
+        </g>
+        <g fill="var(--brand)" stroke="none">
+          <path d="M186.5 78 L190 84 L193.5 78 Z" />
+          <path d="M186.5 162 L190 168 L193.5 162 Z" />
+          <path d="M186.5 246 L190 252 L193.5 246 Z" />
+          <path d="M186.5 330 L190 336 L193.5 330 Z" />
+        </g>
+
+        <g>
+          <rect x="20" y="0" width="340" height="48" rx="4" fill="var(--panel)" stroke="var(--hairline)" />
+          <text x="190" y="21" text-anchor="middle" class="n-label">INGEST</text>
+          <text x="190" y="37" text-anchor="middle" class="n-sub">100+ PDF · 400+ URL</text>
+
+          <rect x="20" y="84" width="340" height="48" rx="4" fill="var(--panel)" stroke="var(--hairline)" />
+          <text x="190" y="105" text-anchor="middle" class="n-label">CHUNK + EMBED</text>
+          <text x="190" y="121" text-anchor="middle" class="n-sub">NORMALISED TEXT</text>
+
+          <rect
+            x="20"
+            y="168"
+            width="340"
+            height="48"
+            rx="4"
+            fill="color-mix(in srgb, var(--brand) 13%, var(--panel))"
+            stroke="color-mix(in srgb, var(--brand) 55%, var(--hairline))"
+          />
+          <text x="190" y="189" text-anchor="middle" class="n-label">QDRANT</text>
+          <text x="190" y="205" text-anchor="middle" class="n-sub">VECTOR STORE</text>
+
+          <rect x="20" y="252" width="340" height="48" rx="4" fill="var(--panel)" stroke="var(--hairline)" />
+          <text x="190" y="273" text-anchor="middle" class="n-label">RETRIEVAL + LLM</text>
+          <text x="190" y="289" text-anchor="middle" class="n-sub">TIER-SCOPED</text>
+
+          <rect x="20" y="336" width="340" height="48" rx="4" fill="var(--panel)" stroke="var(--hairline)" />
+          <text x="190" y="357" text-anchor="middle" class="n-label">RESPONSE</text>
+          <text x="190" y="373" text-anchor="middle" class="n-sub">~500 USERS / DAY</text>
+        </g>
+      </svg>
+    </div>
+  </body>
+</html>
+

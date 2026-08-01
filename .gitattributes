@@ -1,0 +1,7 @@
+# Keep line endings LF in the repository regardless of who checks it out.
+# The build runs on Linux; a Windows checkout should not push CRLF into it.
+* text=auto eol=lf
+
+*.png binary
+*.pdf binary
+*.woff2 binary

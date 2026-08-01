@@ -1,0 +1,339 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Design tokens. Single source of truth — nothing below this block invents a
+   colour, a type size or a spacing value of its own.
+   --------------------------------------------------------------------------- */
+@theme {
+  /* Palette. Exactly six values, per the brief. --muted is a tint of --ink
+     (not a new hue) for secondary text; it holds 7.06:1 on --surface. */
+  --color-ink: #14181b;
+  --color-surface: #fbfbfa;
+  --color-panel: #ecefef;
+  --color-brand: #144e52;
+  --color-data: #b4762a;
+  --color-hairline: #d5d9d9;
+  --color-muted: #555859;
+
+  /* Typefaces. Values are wired to next/font CSS variables in app/layout.tsx. */
+  --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
+  --font-body: var(--font-plex-sans), 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Type scale — five steps, no more. */
+  --text-d1: clamp(2.25rem, 5.5vw, 3.5rem);
+  --text-d1--line-height: 1.05;
+  --text-d1--letter-spacing: -0.022em;
+  --text-d1--font-weight: 700;
+
+  --text-d2: clamp(1.5rem, 2.6vw, 1.75rem);
+  --text-d2--line-height: 1.2;
+  --text-d2--letter-spacing: -0.015em;
+  --text-d2--font-weight: 600;
+
+  --text-d3: 1.25rem;
+  --text-d3--line-height: 1.3;
+  --text-d3--letter-spacing: -0.012em;
+  --text-d3--font-weight: 600;
+
+  --text-body: 1.0625rem; /* 17px */
+  --text-body--line-height: 1.6;
+
+  --text-mono: 0.75rem; /* 12px — eyebrows, diagram + table labels */
+  --text-mono--line-height: 1.4;
+  --text-mono--letter-spacing: 0.06em;
+
+  /* Radii — small, per the brief. No shadows, no gradients anywhere. */
+  --radius-node: 4px;
+  --radius-ctl: 6px;
+
+  --container-content: 1120px;
+}
+
+/* Section rhythm. One value, applied by <Section>; no section overrides it,
+   which is what keeps vertical spacing identical down the page. */
+:root {
+  --section-y: 6rem; /* 96px */
+  --rail-w: 1px;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --section-y: 4rem; /* 64px */
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  @media (max-width: 767px) {
+    body {
+      font-size: 1rem; /* 16px floor — never smaller */
+    }
+  }
+
+  /* Visible focus everywhere, keyboard-only. Uses --brand, which holds
+     9.04:1 on --surface. */
+  :focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  ::selection {
+    background: var(--color-brand);
+    color: var(--color-surface);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer utilities {
+  /* Mono label: the single utility for every technical label on the site
+     (eyebrows, spec keys, stack names, diagram node text, breadcrumbs). */
+  .label {
+    font-family: var(--font-mono);
+    font-size: var(--text-mono);
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* Same face, not shouted — for spec values and stack lists. */
+  .label-val {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem; /* 13px */
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    font-weight: 400;
+  }
+
+  .rule {
+    border-top: var(--rail-w) solid var(--color-hairline);
+  }
+
+  /* A standalone text link on this site is 16-17px tall, under the 24px WCAG
+     2.5.8 target minimum. This grows the hit area vertically without moving the
+     text a pixel. Applied to links that stand on their own (spec values, the
+     locale switch, footer nav) — not to links inside a sentence, which the
+     success criterion exempts. */
+  .tap {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 28px;
+    /* Also a minimum width, for the two-character locale switch. Links wider
+       than this are unaffected, and centring only has an effect when the
+       minimum is what is setting the width. */
+    min-width: 28px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Diagram draw-on. Edges start hidden and are revealed by adding .is-drawn,
+   set once by an IntersectionObserver that then stops observing.
+   --------------------------------------------------------------------------- */
+.diagram-edge {
+  fill: none;
+  stroke: var(--color-brand);
+  /* --dg-stroke is 1/scale, set by the SVG. A scaled-up diagram keeps
+     one-device-pixel lines instead of getting heavier as it gets bigger. */
+  stroke-width: var(--dg-stroke, 1);
+  stroke-linecap: round;
+  stroke-dasharray: var(--edge-len, 600);
+  stroke-dashoffset: var(--edge-len, 600);
+  transition: stroke-dashoffset 600ms cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* A dashed edge (fallback / error path) cannot also use stroke-dasharray to
+   draw itself, so it fades instead. */
+.diagram-edge--dashed {
+  stroke-dasharray: 4 3.5;
+  stroke-dashoffset: 0;
+  opacity: 0;
+  transition: opacity 500ms ease-out 200ms;
+}
+
+.diagram-node,
+.diagram-edge-note {
+  opacity: 0;
+  transition: opacity 400ms ease-out 120ms;
+}
+
+/* Arrowheads land as the line finishes, not before it starts. */
+.diagram-arrow {
+  fill: none;
+  stroke: var(--color-brand);
+  stroke-width: calc(var(--dg-stroke, 1) * 1.2);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0;
+  transition: opacity 220ms ease-out 500ms;
+}
+
+.is-drawn .diagram-edge {
+  stroke-dashoffset: 0;
+}
+
+.is-drawn .diagram-edge--dashed,
+.is-drawn .diagram-node,
+.is-drawn .diagram-edge-note,
+.is-drawn .diagram-arrow {
+  opacity: 1;
+}
+
+/* Node internals. Sizes are in viewBox units; the SVG is never scaled above
+   its natural width, so these render at the stated pixel size. */
+.dg-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.07em;
+  fill: var(--color-ink);
+}
+
+.dg-sub {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  fill: var(--color-brand);
+}
+
+.dg-note {
+  font-family: var(--font-mono);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  fill: var(--color-muted);
+}
+
+.dg-box {
+  fill: var(--color-panel);
+  stroke: var(--color-hairline);
+  stroke-width: var(--dg-stroke, 1);
+  transition: stroke 160ms ease-out, fill 160ms ease-out;
+}
+
+/* The one node a diagram is actually about (the vector store, the model call).
+   Enough tint to be findable, not enough to become a second accent colour. */
+.dg-box--accent {
+  fill: color-mix(in srgb, var(--color-brand) 13%, var(--color-panel));
+  stroke: color-mix(in srgb, var(--color-brand) 55%, var(--color-hairline));
+}
+
+/* Hover swaps the sub-label for a real technical fact. Both strings are in the
+   DOM; only their opacity changes, so nothing reflows. */
+.dg-hover {
+  opacity: 0;
+  transition: opacity 160ms ease-out;
+}
+
+.dg-node-group:hover .dg-box,
+.dg-node-group:focus-visible .dg-box {
+  stroke: var(--color-brand);
+}
+
+.dg-node-group:hover .dg-hover,
+.dg-node-group:focus-visible .dg-hover {
+  opacity: 1;
+}
+
+.dg-node-group:hover .dg-sub-default,
+.dg-node-group:focus-visible .dg-sub-default {
+  opacity: 0;
+}
+
+.dg-sub-default {
+  transition: opacity 160ms ease-out;
+}
+
+/* No JS, or motion turned down: show the finished diagram immediately. */
+@media (prefers-reduced-motion: reduce) {
+  .diagram-edge {
+    stroke-dashoffset: 0;
+  }
+  .diagram-edge--dashed,
+  .diagram-node,
+  .diagram-edge-note,
+  .diagram-arrow {
+    opacity: 1;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Print. The brief says recruiters print this page, so it is a first-class
+   target: chrome off, diagrams to greyscale, link targets spelled out.
+   --------------------------------------------------------------------------- */
+@media print {
+  :root {
+    --section-y: 1.25rem;
+  }
+
+  [data-print='hide'] {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    font-size: 10.5pt;
+  }
+
+  .diagram-edge,
+  .diagram-edge--dashed,
+  .diagram-node,
+  .diagram-edge-note,
+  .diagram-arrow {
+    opacity: 1 !important;
+    stroke-dashoffset: 0 !important;
+    stroke: #333 !important;
+  }
+
+  .dg-box,
+  .dg-box--accent {
+    fill: #fff !important;
+    stroke: #444 !important;
+  }
+
+  .dg-label,
+  .dg-sub,
+  .dg-note {
+    fill: #111 !important;
+  }
+
+  a[data-print-url]::after {
+    content: ' (' attr(data-print-url) ')';
+    font-family: var(--font-mono);
+    font-size: 9pt;
+    word-break: break-all;
+  }
+
+  section,
+  article {
+    break-inside: avoid;
+  }
+}
