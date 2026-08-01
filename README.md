@@ -135,6 +135,25 @@ Middleware does not run under `output: 'export'`, so:
 In dev, `/` is not served by the router — go to `/en/` or `/vi/` directly. The
 redirect works in the built output.
 
+One consequence worth knowing: because every route is under `[locale]`, an
+unmatched top-level path gets matched against `/[locale]` and, under
+`output: 'export'`, throws *"missing param in generateStaticParams()"* instead of
+returning a plain 404. So the paths browsers and crawlers ask for
+unprompted exist as real files: `public/favicon.ico`, `public/icon.svg`,
+`app/robots.ts` and `app/sitemap.ts`. Both metadata routes need
+`export const dynamic = 'force-static'` or the build fails collecting page data.
+
+`app/sitemap.ts` reads the same project list the pages do, so adding a project
+does not mean remembering to update a sitemap.
+
+### The favicon
+
+`public/icon.svg` is the source: three stacked bars, widest in the middle. Solid
+fills and no connector lines, because at 16px a 1px stroke and a 3px gap merge
+into one grey blob — the first version did exactly that. `public/favicon.ico`
+holds 16px and 32px rasterisations of it and exists so `/favicon.ico` resolves to
+a file rather than falling through to the dynamic route.
+
 ### Design tokens
 
 All in the `@theme` block at the top of `app/globals.css`. Two rules the code

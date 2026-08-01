@@ -1,14 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="Pipeline mark">
   <!--
-    Site mark: three nodes on a line — the same drawing language as the
-    diagrams, reduced until it survives 16px. Brand petrol on the page surface.
+    Site mark: three stacked nodes, the widest in the middle — the pipeline
+    silhouette reduced until it still reads at 16px.
+
+    Solid fills, not strokes, and no connector lines: at favicon size a 1px
+    stroke and a 3px gap turn into one grey blob. The brand petrol ground also
+    means the mark holds up against both light and dark browser chrome.
   -->
-  <rect width="32" height="32" rx="5" fill="#FBFBFA" />
-  <g stroke="#144E52" stroke-width="1.6" stroke-linecap="round" fill="none">
-    <path d="M16 10.5 L16 14" />
-    <path d="M16 18 L16 21.5" />
-    <rect x="7.5" y="5.5" width="17" height="5" rx="1.5" />
-    <rect x="7.5" y="13.5" width="17" height="5" rx="1.5" fill="#144E52" fill-opacity="0.22" />
-    <rect x="7.5" y="21.5" width="17" height="5" rx="1.5" />
+  <rect width="32" height="32" rx="6" fill="#144E52" />
+  <g fill="#FBFBFA">
+    <rect x="8" y="6.5" width="16" height="5" rx="1.5" />
+    <rect x="5" y="13.5" width="22" height="5" rx="1.5" />
+    <rect x="8" y="20.5" width="16" height="5" rx="1.5" />
   </g>
 </svg>
