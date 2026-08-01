@@ -22,4 +22,4 @@ export function isLocale(value: string): value is Locale {
 }
 
 /** Absolute site origin. Update once here if the domain changes. */
-export const SITE_URL = 'https://portfolio-nine-omega-97.vercel.app';
+export const SITE_URL = 'https://thangnguyen-ai-portfolio.vercel.app';
