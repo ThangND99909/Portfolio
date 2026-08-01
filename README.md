@@ -5,10 +5,16 @@ rather than a landing page. Next.js App Router, Tailwind CSS, static export.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000 — see the note on "/" below
+npm run dev        # http://localhost:3000  (redirects to /en/)
 npm run build      # writes the static site to out/
+npm run preview    # serves out/ at http://localhost:4321 — the real thing
 npm run typecheck
 ```
+
+`npm run dev` is for editing. `npm run preview` serves the actual static export,
+which is what gets deployed and the only way to check the `/` redirect, the
+`localStorage` locale memory and `robots.txt`/`sitemap.xml` as they will really
+behave.
 
 ## Deploy
 
@@ -132,8 +138,11 @@ Middleware does not run under `output: 'export'`, so:
   payload URL (`/vi/__next.$d$locale.__PAGE__.txt`) for a route whose only
   dynamic segment is the locale, and it 404s. Links to `work/[slug]` are fine.
 
-In dev, `/` is not served by the router — go to `/en/` or `/vi/` directly. The
-redirect works in the built output.
+The dev server serves `public/index.html` at `/index.html` but not at `/`, so `/`
+would 404 in dev only. `next.config.ts` adds a `/` → `/en/` redirect gated on
+`NODE_ENV === 'development'`: `redirects` is unsupported under
+`output: 'export'`, and declaring it unconditionally puts a warning on every
+build, so the exported site never sees it.
 
 One consequence worth knowing: because every route is under `[locale]`, an
 unmatched top-level path gets matched against `/[locale]` and, under
