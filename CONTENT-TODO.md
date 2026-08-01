@@ -129,10 +129,6 @@ your brief actually stated, because the brief said not to invent numbers.
 - **Project status.** The previous content described Arbin, Student Assessment,
   and Smart Calendar as in production, so they are currently mapped to `live`.
   Confirm or change each one to `in-progress` / `prototype` as appropriate.
-- **The live domain.** `SITE_URL` in `lib/i18n.ts` is currently
-  `https://thangnd-portfolio.vercel.app`, which is a guess. It feeds the canonical
-  URL, `hreflang`, Open Graph and JSON-LD, so it needs to be the real one before
-  search engines see the site.
 - **LinkedIn URL.** `linkedinUrl` in `content/profile.ts` is deliberately `null`.
   Add the verified profile URL to publish it in Contact and JSON-LD `sameAs`.
 
