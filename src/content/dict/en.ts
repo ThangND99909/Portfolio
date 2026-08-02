@@ -12,6 +12,7 @@ export const en = {
 
   nav: {
     skipToContent: 'Skip to content',
+    backToTop: 'Back to top',
     index: 'Index',
     work: 'Work',
     timeline: 'Career',
@@ -30,7 +31,7 @@ export const en = {
     name: 'Nguyen Duc Thang',
     viewWork: 'View selected work',
     positioning:
-      'I build production RAG, AI agent and automation systems, backed by nine years in backend engineering and enterprise integrations.',
+      'I build production AI systems—from RAG assistants serving hundreds of users to AI agents that automate business workflows—drawing on nine years of backend engineering and enterprise integration experience.',
     diagramA11y:
       'Data flow of the Arbin AI assistant, from document ingestion through to the response returned to the user.',
   },

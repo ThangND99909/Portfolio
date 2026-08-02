@@ -18,6 +18,7 @@ export const vi: Dictionary = {
 
   nav: {
     skipToContent: 'Tới nội dung chính',
+    backToTop: 'Về đầu trang',
     index: 'Trang chủ',
     work: 'Dự án',
     timeline: 'Quá trình',
@@ -36,7 +37,7 @@ export const vi: Dictionary = {
     name: 'Nguyễn Đức Thắng',
     viewWork: 'Xem dự án chọn lọc',
     positioning:
-      'Tôi xây RAG, AI agent và hệ thống automation chạy trên production, dựa trên chín năm kinh nghiệm backend và enterprise integration.',
+      'Tôi xây các hệ thống AI chạy trên production — từ trợ lý RAG phục vụ hàng trăm người dùng đến AI agent tự động hóa quy trình nghiệp vụ — dựa trên chín năm kinh nghiệm backend engineering và enterprise integration.',
     diagramA11y:
       'Luồng dữ liệu của trợ lý AI Arbin, từ bước ingest tài liệu đến câu trả lời trả về cho người dùng.',
   },

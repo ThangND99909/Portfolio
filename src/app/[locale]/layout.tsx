@@ -102,6 +102,24 @@ export default async function LocaleLayout({
         >
           {dict.nav.skipToContent}
         </a>
+        <button
+          type="button"
+          className="back-to-top"
+          aria-label={dict.nav.backToTop}
+          title={dict.nav.backToTop}
+          data-back-to-top
+          data-print="hide"
+        >
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+          >
+            <path d="M12 19V5M6.5 10.5 12 5l5.5 5.5" />
+          </svg>
+        </button>
         {children}
       </body>
     </html>

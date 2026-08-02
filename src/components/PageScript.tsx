@@ -18,6 +18,29 @@
 export function PageScript() {
   const source = `
 (function () {
+  var backToTop = document.querySelector('[data-back-to-top]');
+  if (backToTop) {
+    var ticking = false;
+    function updateBackToTop() {
+      backToTop.classList.toggle(
+        'is-visible',
+        window.scrollY > Math.max(400, window.innerHeight * 0.75)
+      );
+      ticking = false;
+    }
+    function requestBackToTopUpdate() {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateBackToTop);
+    }
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    window.addEventListener('scroll', requestBackToTopUpdate, { passive: true });
+    window.addEventListener('resize', requestBackToTopUpdate);
+    updateBackToTop();
+  }
+
   if (!('IntersectionObserver' in window)) {
     function reveal(root) {
       if (root.nodeType !== 1) return;
