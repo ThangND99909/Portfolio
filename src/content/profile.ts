@@ -4,17 +4,17 @@ import { projects } from './projects';
 export const profile = {
   name: 'Nguyen Duc Thang',
   nameVi: 'Nguyễn Đức Thắng',
-  title: 'AI Engineer',
+  title: 'Applied AI Engineer',
   location: 'Da Nang, Vietnam',
   email: 'thangnd.pnv@gmail.com',
   phone: '0332201222',
   phoneE164: '+84332201222',
   githubUser: 'ThangND99909',
   githubUrl: 'https://github.com/ThangND99909',
-  // Add the verified public profile URL here; null keeps it out of HTML/JSON-LD.
-  linkedinUrl: null as string | null,
+  linkedinUser: 'thang-nguyen-34aa81388',
+  linkedinUrl: 'https://www.linkedin.com/in/thang-nguyen-34aa81388/',
 
-  cvPath: '/cv.pdf',
+  cvPath: '/Nguyen-Duc-Thang-AI-Engineer-CV.pdf',
 };
 
 /**
@@ -31,15 +31,15 @@ export function metrics(): Metric[] {
     ? {
         figure: `${live} · ${inProgress}`,
         label: {
-          en: 'Systems live · in progress',
-          vi: 'Hệ thống hoạt động · đang phát triển',
+          en: 'Production systems · in progress',
+          vi: 'Hệ thống production · đang phát triển',
         },
       }
     : {
         figure: String(live),
         label: {
-          en: live === 1 ? 'AI system live' : 'AI systems live',
-          vi: 'Hệ thống AI đang hoạt động',
+          en: live === 1 ? 'Production system live' : 'Production systems live',
+          vi: 'Hệ thống production đang hoạt động',
         },
       };
 

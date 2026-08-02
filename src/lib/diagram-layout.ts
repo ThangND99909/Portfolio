@@ -159,14 +159,18 @@ export function layoutDiagram(spec: DiagramSpec, orientation: Orientation): Diag
       const offset = CHANNEL_BASE + channelIndex * CHANNEL_STEP;
       channelIndex += 1;
       const channelX = Math.max(a.x + a.w, b.x + b.w) + offset;
-      widestChannel = Math.max(widestChannel, channelX);
+      // Side-channel notes are start-anchored outside the route. Reserve their
+      // approximate rendered width in the viewBox; otherwise labels such as
+      // "TIER FILTER" are clipped at the right edge on the stacked mobile SVG.
+      const noteWidth = edge.note ? edge.note.length * 6 : 0;
+      widestChannel = Math.max(widestChannel, channelX + 6 + noteWidth);
       edges.push(routeAside(edge, a, b, channelX));
     } else {
       edges.push(routeDirect(edge, a, b));
     }
   }
 
-  if (widestChannel > innerW) innerW = widestChannel + 4;
+  if (widestChannel > innerW) innerW = widestChannel;
 
   return {
     width: round(innerW + PAD * 2),

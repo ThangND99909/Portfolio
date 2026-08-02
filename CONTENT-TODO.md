@@ -20,7 +20,7 @@ border and a **Draft — to be filled in** badge. Each one needs three things:
 - **Choice** — what you picked, specifically (numbers, names, settings).
 - **Trade-off** — what it cost. A decision with no stated cost is not a decision.
 
-### Arbin AI Assistant — `content/projects/arbin.ts`
+### Arbin AI Assistant — `src/content/projects/arbin.ts`
 
 **Qdrant vs Pinecone**
 - Was self-hosting a requirement, or a preference? Why?
@@ -45,7 +45,7 @@ border and a **Draft — to be filled in** badge. Each one needs three things:
 - Where is the tier check enforced — the API layer, the retrieval call, or both?
 - What stops the filter being forgotten on a new endpoint?
 
-### AI Agent for Student Assessment — `content/projects/student-assessment.ts`
+### AI Agent for Student Assessment — `src/content/projects/student-assessment.ts`
 
 **Structured output, not prose**
 - What went wrong when the model answered in free text? Parse failures, missing
@@ -70,7 +70,7 @@ border and a **Draft — to be filled in** badge. Each one needs three things:
 - How is the sheet laid out?
 - Have you hit API quotas? Has anyone edited the store by accident?
 
-### Smart Calendar — `content/projects/smart-calendar.ts`
+### Smart Calendar — `src/content/projects/smart-calendar.ts`
 
 **Suggest, do not auto-assign**
 - Full auto-scheduling is technically possible. What made you stop at
@@ -87,7 +87,7 @@ border and a **Draft — to be filled in** badge. Each one needs three things:
 - Why an export at all, when the schedule is already on screen?
 - What does the sheet contain, and who opens it?
 
-### UXO Chatbot & Detection — `content/projects/uxo.ts`
+### UXO Chatbot & Detection — `src/content/projects/uxo.ts`
 
 **Two models, not one multimodal model**
 - A single vision-language model could answer both kinds of question. Why keep
@@ -118,8 +118,6 @@ your brief actually stated, because the brief said not to invent numbers.
 
 ## 3. Files to add
 
-- **`public/cv.pdf`** — the build detects this file automatically. Until it
-  exists, no download control is rendered.
 - **Screenshots and demo videos** — each case study has boxes at the right aspect
   ratio with the exact path printed inside them, e.g.
   `public/media/arbin/01-chat.png`. Dropping files in does not move anything.
@@ -129,8 +127,6 @@ your brief actually stated, because the brief said not to invent numbers.
 - **Project status.** The previous content described Arbin, Student Assessment,
   and Smart Calendar as in production, so they are currently mapped to `live`.
   Confirm or change each one to `in-progress` / `prototype` as appropriate.
-- **LinkedIn URL.** `linkedinUrl` in `content/profile.ts` is deliberately `null`.
-  Add the verified profile URL to publish it in Contact and JSON-LD `sameAs`.
 
 ## 5. Decisions I made on your behalf
 

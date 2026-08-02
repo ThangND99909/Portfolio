@@ -10,9 +10,9 @@ import type { Dictionary } from './en';
  */
 export const vi: Dictionary = {
   meta: {
-    title: 'Nguyễn Đức Thắng — AI Engineer',
+    title: 'Nguyễn Đức Thắng — Applied AI Engineer',
     description:
-      'AI Engineer tại Đà Nẵng. Chín năm làm integration cho hệ thống production; từ 2025 xây RAG pipeline và AI agent chạy thật trên production.',
+      'Applied AI Engineer tại Đà Nẵng. Chín năm làm backend và enterprise integration; từ 2025 triển khai RAG, AI agent và hệ thống automation trên production.',
     ogAlt: 'Nguyễn Đức Thắng, AI Engineer — sơ đồ pipeline',
   },
 
@@ -32,10 +32,11 @@ export const vi: Dictionary = {
   },
 
   hero: {
-    eyebrow: 'Đà Nẵng, Việt Nam · AI Engineer từ 2025',
+    eyebrow: 'Đà Nẵng, Việt Nam · Applied AI Engineer',
     name: 'Nguyễn Đức Thắng',
+    viewWork: 'Xem dự án chọn lọc',
     positioning:
-      'Chín năm nối các hệ thống lại với nhau và giữ chúng chạy trên production. Từ 2025 tôi xây RAG pipeline và AI agent — vẫn công việc đó, stack mới.',
+      'Tôi xây RAG, AI agent và hệ thống automation chạy trên production, dựa trên chín năm kinh nghiệm backend và enterprise integration.',
     diagramA11y:
       'Luồng dữ liệu của trợ lý AI Arbin, từ bước ingest tài liệu đến câu trả lời trả về cho người dùng.',
   },
@@ -97,6 +98,8 @@ export const vi: Dictionary = {
   },
 
   study: {
+    navLabel: 'Các phần trong case study',
+    demoNav: 'Demo',
     problem: 'Vấn đề',
     constraints: 'Giới hạn',
     architecture: 'Kiến trúc',

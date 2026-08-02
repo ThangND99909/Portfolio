@@ -1,7 +1,7 @@
 import { readFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
-const directory = join(process.cwd(), 'content', 'projects');
+const directory = join(process.cwd(), 'src', 'content', 'projects');
 const missing = [];
 
 for (const file of readdirSync(directory).filter((name) => name.endsWith('.ts') && name !== 'index.ts')) {

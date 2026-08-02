@@ -59,8 +59,8 @@ export const timeline: TimelineEntry[] = [
     title: { en: 'AI Engineer programme', vi: 'Chương trình AI Engineer' },
     org: 'iViettech',
     detail: {
-      en: 'Retraining from integration engineering into applied AI.',
-      vi: 'Chuyển hướng từ integration engineering sang AI ứng dụng.',
+      en: 'AI Engineer programme at the Professional Programmer Training Center.',
+      vi: 'Chương trình AI Engineer tại Trung tâm Đào tạo Lập trình viên Chuyên nghiệp.',
     },
     era: 'education',
   },
@@ -95,8 +95,8 @@ export const timeline: TimelineEntry[] = [
     title: { en: 'Software Developer', vi: 'Software Developer' },
     org: 'Passerelles Numériques Vietnam',
     detail: {
-      en: 'Software development training.',
-      vi: 'Chương trình đào tạo phát triển phần mềm.',
+      en: 'Graduated from the Software Developer programme.',
+      vi: 'Tốt nghiệp chương trình Software Developer.',
     },
     era: 'education',
   },

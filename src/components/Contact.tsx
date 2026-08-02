@@ -47,20 +47,18 @@ export function Contact({ dict }: { dict: Dictionary }) {
     },
   ];
 
-  if (profile.linkedinUrl) {
-    rows.splice(2, 0, {
-      key: dict.contact.linkedin,
-      node: (
-        <a
-          href={profile.linkedinUrl}
-          className="tap text-brand underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:decoration-brand"
-          data-print-url={profile.linkedinUrl}
-        >
-          linkedin.com
-        </a>
-      ),
-    });
-  }
+  rows.splice(2, 0, {
+    key: dict.contact.linkedin,
+    node: (
+      <a
+        href={profile.linkedinUrl}
+        className="tap text-brand underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:decoration-brand"
+        data-print-url={profile.linkedinUrl}
+      >
+        linkedin.com/in/{profile.linkedinUser}
+      </a>
+    ),
+  });
 
   return (
     <div className="grid gap-10 md:grid-cols-12 md:gap-10">

@@ -8,7 +8,17 @@ import type { SkillLayer } from './types';
 export const skills: SkillLayer[] = [
   {
     name: { en: 'Ingestion & data', vi: 'Ingestion & data' },
-    items: ['Python', 'Java', 'SQL', 'PostgreSQL', 'Google Sheets/Drive/Docs API', 'Roboflow'],
+    items: [
+      'Python',
+      'Java',
+      'SQL',
+      'PostgreSQL',
+      'XML / JSON / EDI',
+      'NumPy',
+      'Pandas',
+      'Google Sheets/Drive/Docs API',
+      'Roboflow',
+    ],
   },
   {
     name: { en: 'Retrieval & vector', vi: 'Retrieval & vector' },
@@ -20,6 +30,10 @@ export const skills: SkillLayer[] = [
   },
   {
     name: { en: 'ML & vision', vi: 'ML & vision' },
-    items: ['Scikit-learn', 'TensorFlow', 'PyTorch', 'YOLOv8'],
+    items: ['Scikit-learn', 'TensorFlow', 'PyTorch', 'YOLOv8', 'Matplotlib', 'Seaborn'],
+  },
+  {
+    name: { en: 'Language', vi: 'Ngoại ngữ' },
+    items: ['English · advanced technical reading & research'],
   },
 ];

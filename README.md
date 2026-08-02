@@ -19,21 +19,36 @@ used on Vercel and is the right place to verify redirects and metadata routes.
 Target is **Vercel**. Import the repo and accept the Next.js defaults.
 
 **Before the first deploy**, set the real domain once at `SITE_URL` in
-`lib/i18n.ts`. It drives canonical URLs, `hreflang`, Open Graph, JSON-LD,
+`src/lib/i18n.ts`. It drives canonical URLs, `hreflang`, Open Graph, JSON-LD,
 robots and the sitemap. `/` redirects permanently to `/en` in `next.config.ts`.
+
+## Project structure
+
+```text
+src/
+├── app/          # Routes, layouts, metadata routes, and global styles
+├── components/   # Reusable server-rendered UI components
+├── content/      # Typed bilingual copy and project data
+└── lib/          # Framework-independent helpers, i18n, and SEO
+public/           # Static assets served as-is
+scripts/          # Build-time validation and audit tooling
+```
+
+Application source lives under `src/`; framework configuration, package files,
+static assets, and repository tooling stay at the project root.
 
 ## Editing content
 
-No copy lives in a component. Everything is in `content/`:
+No copy lives in a component. Everything is in `src/content/`:
 
 | File | What it holds |
 | --- | --- |
-| `content/dict/en.ts` | Every UI string, English. This is the source of truth for the dictionary's shape. |
-| `content/dict/vi.ts` | The same strings in Vietnamese, typed against `en.ts` — **adding a key to `en.ts` without translating it fails the build**. |
-| `content/profile.ts` | Name, email, phone, social links, and profile metrics. |
-| `content/projects/*.ts` | One file per case study: prose, spec sheet, architecture diagram, decisions, results, media slots. |
-| `content/timeline.ts` | Career entries, newest first. |
-| `content/skills.ts` | Skills grouped by pipeline layer. |
+| `src/content/dict/en.ts` | Every UI string, English. This is the source of truth for the dictionary's shape. |
+| `src/content/dict/vi.ts` | The same strings in Vietnamese, typed against `en.ts` — **adding a key to `en.ts` without translating it fails the build**. |
+| `src/content/profile.ts` | Name, email, phone, social links, and profile metrics. |
+| `src/content/projects/*.ts` | One file per case study: prose, spec sheet, architecture diagram, decisions, results, media slots. |
+| `src/content/timeline.ts` | Career entries, newest first. |
+| `src/content/skills.ts` | Skills grouped by pipeline layer. |
 
 Every prose field is `{ en: '…', vi: '…' }`. Technical terms stay in English in
 the Vietnamese copy on purpose (RAG, pipeline, embedding, retrieval, vector
@@ -42,8 +57,8 @@ leaving them.
 
 ### Adding a project
 
-1. Copy `content/projects/smart-calendar.ts` and edit it.
-2. Add it to the array in `content/projects/index.ts` and give it an explicit
+1. Copy `src/content/projects/smart-calendar.ts` and edit it.
+2. Add it to the array in `src/content/projects/index.ts` and give it an explicit
    `order`, `section`, and `status` in its content file.
 
 The route, the static params, the `hreflang` pair and the JSON-LD all follow from
@@ -57,8 +72,9 @@ build warns for every omitted decision; a page with none hides the whole section
 
 ### Adding the CV
 
-Drop the file at `public/cv.pdf`. The server build detects it automatically; the
-download link is absent until the file exists.
+Set `cvPath` in `src/content/profile.ts` to the PDF stored under `public/`. The
+server build detects it automatically; the download link is absent until the
+file exists.
 
 ### Adding screenshots and demo videos
 
@@ -70,14 +86,14 @@ in does not move anything on the page.
 
 ### The diagrams are data
 
-`content/projects/*.ts` describes each diagram as nodes on a grid plus edges:
+`src/content/projects/*.ts` describes each diagram as nodes on a grid plus edges:
 
 ```ts
 { id: 'qdrant', label: 'QDRANT', sub: 'VECTOR STORE', col: 0, row: 2, tone: 'accent' }
 { from: 'chunk', to: 'qdrant', note: 'EMBEDDINGS' }
 ```
 
-`lib/diagram-layout.ts` turns that into coordinates and `components/PipelineDiagram.tsx`
+`src/lib/diagram-layout.ts` turns that into coordinates and `src/components/PipelineDiagram.tsx`
 renders it. Consequences worth knowing:
 
 - All five diagrams share one geometry, so they cannot drift out of style.
@@ -93,7 +109,7 @@ renders it. Consequences worth knowing:
 ### Server components by default
 
 The whole site renders on the server. The only client-side behaviour is
-`components/PageScript.tsx` — an inline script that adds `is-drawn` to a diagram
+`src/components/PageScript.tsx` — an inline script that adds `is-drawn` to a diagram
 when it scrolls into view.
 
 This was a measured decision, not a preference: with `PipelineDiagram` and
@@ -107,7 +123,7 @@ below finished the job.
 on every page is a paragraph that repaints when the webfont lands, which put
 throttled-mobile LCP at ~2.8s. Without preload, text paints immediately in
 next/font's metric-adjusted fallback and LCP drops to ~1.7s — with CLS still 0.
-See the comment in `app/[locale]/layout.tsx`.
+See the comment in `src/app/[locale]/layout.tsx`.
 
 Also rejected after measuring: `experimental.inlineCss`. Inlining the ~7KB
 stylesheet removed a render-blocking request but pushed FCP from 777ms to 953ms,
@@ -117,15 +133,13 @@ because the HTML document is itself the critical resource.
 
 Every content route is explicitly locale-scoped:
 
-- Every route lives under `app/[locale]/`, and that layout is the root layout,
+- Every route lives under `src/app/[locale]/`, and that layout is the root layout,
   which gets `<html lang>` right for both locales.
 - `/` is a permanent Next.js redirect to `/en` declared in `next.config.ts`.
 - The language switcher takes the current path as a prop from the page, so it
-  stays on the page you were reading without needing `usePathname`.
-- The language switcher takes the current path as a prop from the page, so it
   stays on the page being read without becoming a client component.
 
-`app/sitemap.ts` reads the same project list the pages do, so adding a project
+`src/app/sitemap.ts` reads the same project list the pages do, so adding a project
 does not mean remembering to update a sitemap.
 
 ### The favicon
@@ -138,7 +152,7 @@ a file rather than falling through to the dynamic route.
 
 ### Design tokens
 
-All in the `@theme` block at the top of `app/globals.css`. Two rules the code
+All in the `@theme` block at the top of `src/app/globals.css`. Two rules the code
 depends on:
 
 - `--data` (amber) is **only** for figures at display size. It holds 3.64:1 on
@@ -179,3 +193,5 @@ alternatives, root redirect, colour usage and the first-1.5-screen requirement.
 `scripts/og-source.html` is the source for `public/og.png` (1200×630). It is not
 served to visitors. Edit it, then render it to a PNG with headless Chrome at that
 window size — the instructions are in a comment at the top of the file.
+
+link: https://thangnguyen-ai-portfolio.vercel.app/

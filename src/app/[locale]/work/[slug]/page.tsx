@@ -51,7 +51,7 @@ function StudyHead({ children }: { children: React.ReactNode }) {
 
 function Block({ children, id }: { children: React.ReactNode; id?: string }) {
   return (
-    <section id={id} className="border-t border-hairline pt-8 pb-12">
+    <section id={id} className="scroll-mt-28 border-t border-hairline pt-8 pb-12 lg:scroll-mt-20">
       {children}
     </section>
   );
@@ -107,15 +107,58 @@ export default async function CaseStudyPage({
         </Container>
 
         <Container>
-          <div className="grid gap-12 md:grid-cols-12 md:gap-10">
+          <nav
+            aria-label={dict.study.navLabel}
+            className="overflow-x-auto border-y border-hairline"
+          >
+            <ul className="label flex min-w-max items-center gap-6 py-3">
+              <li>
+                <a href="#problem" className="tap text-muted transition-colors hover:text-brand">
+                  {dict.study.problem}
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#architecture"
+                  className="tap text-muted transition-colors hover:text-brand"
+                >
+                  {dict.study.architecture}
+                </a>
+              </li>
+              {publishedDecisions.length > 0 ? (
+                <li>
+                  <a
+                    href="#decisions"
+                    className="tap text-muted transition-colors hover:text-brand"
+                  >
+                    {dict.study.decisions}
+                  </a>
+                </li>
+              ) : null}
+              <li>
+                <a href="#result" className="tap text-muted transition-colors hover:text-brand">
+                  {dict.study.result}
+                </a>
+              </li>
+              <li>
+                <a href="#media" className="tap text-muted transition-colors hover:text-brand">
+                  {dict.study.demoNav}
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </Container>
+
+        <Container>
+          <div className="grid gap-8 pt-8 md:grid-cols-12 md:gap-10">
             {/* 4 / gap / 7. Three columns left the spec values wrapping every
                 line; seven on the right still caps body copy below its
                 max-width, so nothing is lost. */}
-            <div className="md:col-span-4">
+            <div className="order-2 md:order-1 md:col-span-4">
               <SpecSheet project={project} locale={l} dict={dict} />
             </div>
 
-            <div className="md:col-span-7 md:col-start-6">
+            <div className="order-1 md:order-2 md:col-span-7 md:col-start-6">
               <Block id="problem">
                 <StudyHead>{dict.study.problem}</StudyHead>
                 <p className="max-w-[68ch] text-ink">{project.problem[l]}</p>
@@ -134,7 +177,13 @@ export default async function CaseStudyPage({
                   ))}
                 </ul>
               </Block>
+            </div>
+          </div>
+        </Container>
 
+        <Container>
+          <div className="grid md:grid-cols-12 md:gap-10">
+            <div className="md:col-span-7 md:col-start-6">
               <Block id="architecture">
                 <StudyHead>{dict.study.architecture}</StudyHead>
 

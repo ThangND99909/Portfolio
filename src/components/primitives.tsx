@@ -31,7 +31,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`${divide ? 'border-t border-hairline' : ''} ${className}`}
+      className={`scroll-mt-28 lg:scroll-mt-20 ${divide ? 'border-t border-hairline' : ''} ${className}`}
       style={{ paddingTop: 'var(--section-y)', paddingBottom: 'var(--section-y)' }}
     >
       <Container>{children}</Container>
@@ -55,7 +55,7 @@ export function SectionHead({
   className?: string;
 }) {
   return (
-    <header className={`mb-12 ${className}`}>
+    <header className={`mb-8 md:mb-12 ${className}`}>
       <Eyebrow className="mb-3">{eyebrow}</Eyebrow>
       <h2 className="font-display text-d2 text-ink">{title}</h2>
     </header>

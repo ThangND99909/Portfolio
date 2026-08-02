@@ -4,7 +4,7 @@ import { projects } from '@/content/projects';
 
 /**
  * Generated at build time as /sitemap.xml, from the same project list the
- * pages are generated from — add a project to content/projects/index.ts and it
+ * pages are generated from — add a project to src/content/projects/index.ts and it
  * appears here without anyone remembering to update a second file.
  *
  * `alternates.languages` emits the xhtml:link hreflang pairs, matching the

@@ -5,7 +5,7 @@ import { SITE_URL } from '@/lib/i18n';
  * Generated at build time as /robots.txt.
  *
  * Two reasons this file exists. The obvious one is SEO. The less obvious one:
- * every route on this site lives under app/[locale], so any unmatched top-level
+ * every route on this site lives under src/app/[locale], so any unmatched top-level
  * path can be matched against `/[locale]` before locale validation.
  * Crawlers ask for /robots.txt on every visit, so it is worth having as a real
  * file. Same reasoning behind public/favicon.ico.

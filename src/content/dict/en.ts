@@ -4,9 +4,9 @@
  */
 export const en = {
   meta: {
-    title: 'Nguyen Duc Thang — AI Engineer',
+    title: 'Nguyen Duc Thang — Applied AI Engineer',
     description:
-      'AI Engineer in Da Nang, Vietnam. Nine years integrating production systems; since 2025 building RAG pipelines and AI agents that run in production.',
+      'Applied AI Engineer in Da Nang, Vietnam. Nine years in backend and enterprise integrations; shipping production RAG, AI agent and automation systems since 2025.',
     ogAlt: 'Nguyen Duc Thang, AI Engineer — pipeline diagram',
   },
 
@@ -26,10 +26,11 @@ export const en = {
   },
 
   hero: {
-    eyebrow: 'Da Nang, Vietnam · AI Engineer since 2025',
+    eyebrow: 'Da Nang, Vietnam · Applied AI Engineer',
     name: 'Nguyen Duc Thang',
+    viewWork: 'View selected work',
     positioning:
-      'Nine years integrating systems and keeping them running in production. Since 2025 I build RAG pipelines and AI agents — same job, new stack.',
+      'I build production RAG, AI agent and automation systems, backed by nine years in backend engineering and enterprise integrations.',
     diagramA11y:
       'Data flow of the Arbin AI assistant, from document ingestion through to the response returned to the user.',
   },
@@ -91,6 +92,8 @@ export const en = {
   },
 
   study: {
+    navLabel: 'Case study sections',
+    demoNav: 'Demo',
     problem: 'Problem',
     constraints: 'Constraints',
     architecture: 'Architecture',

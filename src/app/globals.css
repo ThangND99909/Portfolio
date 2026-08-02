@@ -15,7 +15,7 @@
   --color-hairline: #d5d9d9;
   --color-muted: #555859;
 
-  /* Typefaces. Values are wired to next/font CSS variables in app/layout.tsx. */
+  /* Typefaces. Values are wired to next/font CSS variables in src/app/[locale]/layout.tsx. */
   --font-display: var(--font-archivo), 'Archivo', system-ui, sans-serif;
   --font-body: var(--font-plex-sans), 'IBM Plex Sans', system-ui, sans-serif;
   --font-mono: var(--font-plex-mono), 'IBM Plex Mono', ui-monospace, monospace;
@@ -59,7 +59,12 @@
 
 @media (max-width: 767px) {
   :root {
-    --section-y: 4rem; /* 64px */
+    --section-y: 3.25rem; /* 52px */
+  }
+
+  .label {
+    font-size: 0.8125rem; /* 13px for mobile navigation and section labels */
+    letter-spacing: 0.045em;
   }
 }
 

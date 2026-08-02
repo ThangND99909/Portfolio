@@ -70,11 +70,7 @@ export function WorkIndex({
               </p>
 
               <p className="label shrink-0 text-brand">
-                {/* Visible by default on touch, where there is no hover to
-                    reveal it; revealed on hover from md up. */}
-                <span className="transition-opacity md:opacity-0 md:group-hover:opacity-100 md:group-focus-visible:opacity-100">
-                  {dict.work.readSpec}
-                </span>
+                <span>{dict.work.readSpec}</span>
                 <span aria-hidden="true" className="ml-2">
                   →
                 </span>

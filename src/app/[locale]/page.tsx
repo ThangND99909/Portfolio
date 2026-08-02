@@ -70,9 +70,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <WorkIndex locale={l} dict={dict} projects={selectedProjects} />
         </Section>
 
-        <Section id="experiments">
-          <SectionHead eyebrow={dict.work.experimentsEyebrow} title={dict.work.experimentsTitle} />
-          <WorkIndex locale={l} dict={dict} projects={experimentProjects} compact />
+        <Section id="skills">
+          <SectionHead eyebrow={dict.skills.eyebrow} title={dict.skills.title} />
+          <SkillTable locale={l} />
         </Section>
 
         <Section id="career">
@@ -80,9 +80,9 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           <Timeline locale={l} dict={dict} />
         </Section>
 
-        <Section id="skills">
-          <SectionHead eyebrow={dict.skills.eyebrow} title={dict.skills.title} />
-          <SkillTable locale={l} />
+        <Section id="experiments">
+          <SectionHead eyebrow={dict.work.experimentsEyebrow} title={dict.work.experimentsTitle} />
+          <WorkIndex locale={l} dict={dict} projects={experimentProjects} compact />
         </Section>
 
         <Section id="contact">
@@ -95,7 +95,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
 
       <script
         type="application/ld+json"
-        // Generated from content/profile.ts — no user input reaches this string.
+        // Generated from src/content/profile.ts — no user input reaches this string.
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd(l)) }}
       />
 

@@ -19,9 +19,31 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
 
             <p className="mt-6 max-w-[42ch] text-ink">{dict.hero.positioning}</p>
 
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="#work"
+                className="label tap rounded-ctl border border-brand bg-brand px-5 py-3 text-surface transition-colors hover:bg-surface hover:text-brand"
+              >
+                {dict.hero.viewWork}
+                <span aria-hidden="true" className="ml-2">
+                  ↓
+                </span>
+              </a>
+              <a
+                href={profile.cvPath}
+                download
+                className="label tap rounded-ctl border border-brand px-5 py-3 text-brand transition-colors hover:bg-brand hover:text-surface"
+              >
+                {dict.contact.downloadCv}
+                <span aria-hidden="true" className="ml-2">
+                  ↓
+                </span>
+              </a>
+            </div>
+
             {/* label-val, not .label: an email address and a GitHub handle are
                 literal strings and uppercasing them misspells them. */}
-            <ul className="label-val mt-10 flex flex-col gap-2.5">
+            <ul className="label-val mt-7 flex flex-col gap-2">
               <li>
                 <a
                   href={`mailto:${profile.email}`}
@@ -37,6 +59,15 @@ export function Hero({ locale, dict }: { locale: Locale; dict: Dictionary }) {
                   data-print-url={profile.githubUrl}
                 >
                   github.com/{profile.githubUser}
+                </a>
+              </li>
+              <li>
+                <a
+                  href={profile.linkedinUrl}
+                  className="tap text-brand underline decoration-hairline decoration-1 underline-offset-4 transition-colors hover:decoration-brand"
+                  data-print-url={profile.linkedinUrl}
+                >
+                  linkedin.com/in/{profile.linkedinUser}
                 </a>
               </li>
             </ul>

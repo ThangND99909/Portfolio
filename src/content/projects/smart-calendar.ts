@@ -5,14 +5,14 @@ export const smartCalendar: Project = {
   order: 3,
   section: 'selected',
   name: 'Smart Calendar',
-  role: { en: 'Freelance Full-stack Engineer', vi: 'Full-stack Engineer freelance' },
+  role: { en: 'Freelance AI Engineer', vi: 'AI Engineer freelance' },
   org: 'Zencity Foundation',
   period: { en: '06/2025 — now', vi: '06/2025 — nay' },
   status: 'live',
 
   outcome: {
-    en: 'Scheduling app used by 20 teachers, suggesting class slots from their actual free time and syncing both ways with Google Calendar.',
-    vi: 'App xếp lịch cho 20 giáo viên, gợi ý slot dạy từ khoảng rảnh thật của họ và đồng bộ hai chiều với Google Calendar.',
+    en: 'Scheduling app used by 20 teachers, with a recommendation engine that analyses availability and two-way Google Calendar sync.',
+    vi: 'App xếp lịch cho 20 giáo viên, với recommendation engine phân tích lịch rảnh và đồng bộ hai chiều Google Calendar.',
   },
 
   stack: ['React', 'FullCalendar', 'FastAPI', 'Google Calendar API'],
@@ -23,7 +23,7 @@ export const smartCalendar: Project = {
   },
 
   spec: [
-    { key: 'role', value: { en: 'Freelance Full-stack Engineer', vi: 'Full-stack Engineer freelance' } },
+    { key: 'role', value: { en: 'Freelance AI Engineer', vi: 'AI Engineer freelance' } },
     { key: 'client', value: { en: 'Zencity Foundation (nonprofit)', vi: 'Zencity Foundation (phi lợi nhuận)' } },
     { key: 'timeline', value: { en: '06/2025 — now', vi: '06/2025 — nay' } },
     { key: 'users', value: { en: '20 teachers', vi: '20 giáo viên' } },
