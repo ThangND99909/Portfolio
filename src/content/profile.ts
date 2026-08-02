@@ -9,6 +9,7 @@ export const profile = {
   email: 'thangnd.pnv@gmail.com',
   phone: '0332201222',
   phoneE164: '+84332201222',
+  zaloUrl: 'https://zalo.me/0332201222',
   githubUser: 'ThangND99909',
   githubUrl: 'https://github.com/ThangND99909',
   linkedinUser: 'thang-nguyen-34aa81388',

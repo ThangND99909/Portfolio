@@ -41,6 +41,21 @@ export function PageScript() {
     updateBackToTop();
   }
 
+  var zaloDialog = document.querySelector('[data-zalo-qr-dialog]');
+  var openZaloQr = document.querySelector('[data-open-zalo-qr]');
+  var closeZaloQr = document.querySelector('[data-close-zalo-qr]');
+  if (zaloDialog && openZaloQr && closeZaloQr) {
+    openZaloQr.addEventListener('click', function () {
+      zaloDialog.showModal();
+    });
+    closeZaloQr.addEventListener('click', function () {
+      zaloDialog.close();
+    });
+    zaloDialog.addEventListener('click', function (event) {
+      if (event.target === zaloDialog) zaloDialog.close();
+    });
+  }
+
   if (!('IntersectionObserver' in window)) {
     function reveal(root) {
       if (root.nodeType !== 1) return;

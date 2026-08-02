@@ -211,6 +211,43 @@
   }
 }
 
+.zalo-qr-dialog {
+  width: min(calc(100% - 2rem), 26rem);
+  max-width: none;
+  max-height: calc(100dvh - 2rem);
+  margin: auto;
+  overflow: auto;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-ctl);
+  background: var(--color-surface);
+  color: var(--color-ink);
+}
+
+.zalo-qr-dialog::backdrop {
+  background: color-mix(in srgb, var(--color-ink) 55%, transparent);
+}
+
+.zalo-qr-close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: grid;
+  width: 2.75rem;
+  height: 2.75rem;
+  place-items: center;
+  border: 1px solid var(--color-hairline);
+  border-radius: 999px;
+  color: var(--color-ink);
+  font-size: 1.5rem;
+  line-height: 1;
+  transition: border-color 160ms ease-out, color 160ms ease-out;
+}
+
+.zalo-qr-close:hover {
+  border-color: var(--color-brand);
+  color: var(--color-brand);
+}
+
 /* ---------------------------------------------------------------------------
    Diagram draw-on. Edges start hidden and are revealed by adding .is-drawn,
    set once by an IntersectionObserver that then stops observing.
